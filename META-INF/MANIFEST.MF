@@ -1,16 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.sugarj.haskell
-Bundle-SymbolicName: org.sugarj.haskell;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Name: org.sugarj.language.haskell
+Bundle-SymbolicName: org.sugarj.language.haskell;singleton:=true
+Bundle-Version: 1.2.0.qualifier
 Bundle-Activator: org.sugarj.haskell.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.sugarj.common,
- org.sugarj.languagelib,
  org.spoofax.terms,
- org.strategoxt.strj
+ org.strategoxt.strj,
+ org.sugarj.baselang
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.sugarj
-Eclipse-RegisterBuddy: org.sugarj.languagelib
+Eclipse-RegisterBuddy: org.sugarj.baselang
