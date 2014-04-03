@@ -2,8 +2,8 @@ package org.sugarj.haskell;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.sugarj.HaskellLanguage;
 import org.sugarj.BaseLanguageRegistry;
+import org.sugarj.HaskellLanguage;
 
 /**
  * The activator class controls the plug-in life cycle

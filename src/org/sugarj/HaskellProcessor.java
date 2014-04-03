@@ -81,9 +81,12 @@ public class HaskellProcessor extends AbstractBaseProcessor {
    * processing stuff follows here
    */
   @Override
-  public void init(RelativePath sourceFile, Environment environment) {
+  public void init(Set<RelativePath> sourceFiles, Environment environment) {
+    if (sourceFiles.size() != 1)
+      throw new IllegalArgumentException("Fomega can only compile one source file at a time.");
+
     this.environment = environment;
-    this.sourceFile = sourceFile;
+    this.sourceFile = sourceFiles.iterator().next();
     outFile = environment.createOutPath(FileCommands.dropExtension(sourceFile.getRelativePath()) + "." + HaskellLanguage.getInstance().getBaseFileExtension());
   }
 
@@ -91,7 +94,7 @@ public class HaskellProcessor extends AbstractBaseProcessor {
     String qualifiedModuleName = prettyPrint(getApplicationSubterm(toplevelDecl, "ModuleDec", 0));
     String qualifiedModulePath = qualifiedModuleName.replace('.', '/');
     String declaredModuleName = FileCommands.fileName(qualifiedModulePath);
-    moduleName = FileCommands.dropExtension(FileCommands.fileName(sourceFile.getRelativePath()));
+    moduleName = FileCommands.dropExtension(FileCommands.fileName(sourceFile));
     String declaredRelNamespaceName = FileCommands.dropFilename(qualifiedModulePath);
     relNamespaceName = FileCommands.dropFilename(sourceFile.getRelativePath());
     
