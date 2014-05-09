@@ -83,7 +83,7 @@ public class HaskellProcessor extends AbstractBaseProcessor {
   @Override
   public void init(Set<RelativePath> sourceFiles, Environment environment) {
     if (sourceFiles.size() != 1)
-      throw new IllegalArgumentException("Fomega can only compile one source file at a time.");
+      throw new IllegalArgumentException("Haskell can only compile one source file at a time.");
 
     this.environment = environment;
     this.sourceFile = sourceFiles.iterator().next();
