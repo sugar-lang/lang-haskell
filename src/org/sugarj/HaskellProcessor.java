@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.spoofax.interpreter.terms.IStrategoTerm;
+import org.sugarj.baselang.IORelay;
 import org.sugarj.common.ATermCommands;
 import org.sugarj.common.CommandExecution;
 import org.sugarj.common.CommandExecution.ExecutionError;
-import org.sugarj.common.Environment;
 import org.sugarj.common.FileCommands;
 import org.sugarj.common.Log;
 import org.sugarj.common.StringCommands;
@@ -37,7 +37,7 @@ public class HaskellProcessor extends AbstractBaseProcessor {
   private List<String> body = new LinkedList<String>();
   private boolean hasExtension = false;
 
-  private Environment environment;
+  private IORelay environment;
   private RelativePath sourceFile;
   private Path outFile;
   private Set<RelativePath> generatedModules = new HashSet<RelativePath>();
@@ -81,7 +81,7 @@ public class HaskellProcessor extends AbstractBaseProcessor {
    * processing stuff follows here
    */
   @Override
-  public void init(Set<RelativePath> sourceFiles, Environment environment) {
+  public void init(Set<RelativePath> sourceFiles, IORelay environment) {
     if (sourceFiles.size() != 1)
       throw new IllegalArgumentException("Haskell can only compile one source file at a time.");
 
