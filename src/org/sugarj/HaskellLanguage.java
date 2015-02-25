@@ -15,7 +15,9 @@ import org.sugarj.common.path.Path;
 
 public class HaskellLanguage extends AbstractBaseLanguage {
 
-	private HaskellLanguage() { }
+	private static final long serialVersionUID = -7377573155048057253L;
+
+  private HaskellLanguage() { }
 	
 	private static HaskellLanguage instance = new HaskellLanguage();
 	
