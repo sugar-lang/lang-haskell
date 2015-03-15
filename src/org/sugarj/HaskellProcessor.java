@@ -14,8 +14,9 @@ import java.util.Set;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.sugarj.baselang.IORelay;
 import org.sugarj.common.ATermCommands;
-import org.sugarj.common.CommandExecution;
-import org.sugarj.common.CommandExecution.ExecutionError;
+import org.sugarj.common.Exec;
+import org.sugarj.common.Exec.ExecutionError;
+import org.sugarj.common.Exec.ExecutionResult;
 import org.sugarj.common.FileCommands;
 import org.sugarj.common.Log;
 import org.sugarj.common.StringCommands;
@@ -188,32 +189,31 @@ public class HaskellProcessor extends AbstractBaseProcessor {
       cmds.add(searchPath.toString());
     }
     
-    new CommandExecution(false).execute(cmds.toArray(new String[cmds.size()]));
+    Exec.run(false, cmds.toArray(new String[cmds.size()]));
     
     return generatedFiles;
   }
 
   @Override
   public boolean isModuleExternallyResolvable(String relModulePath) {
-    boolean oldSilent = CommandExecution.SILENT_EXECUTION;
-    CommandExecution.SILENT_EXECUTION = true;
+    boolean oldSilent = Exec.SILENT_EXECUTION;
+    Exec.SILENT_EXECUTION = true;
     String[] cmds = new String[]{
       "ghc-pkg", 
       "find-module", relModulePath.replace('/', '.'),
       "--simple-output"
     };
     
-    String[][] msg;
     try {
-       msg = new CommandExecution(true).execute(cmds);
+      ExecutionResult msg = Exec.run(cmds);
+      return msg.outMsgs.length > 0;
     } catch (ExecutionError e) {
-      Log.log.logErr("Command execution failed: " + Arrays.toString(e.getCmds()), Log.ALWAYS);
+      Log.log.logErr("Command execution failed: " + Arrays.toString(e.cmds), Log.ALWAYS);
       return false;
     } finally {
-      CommandExecution.SILENT_EXECUTION = oldSilent;
+      Exec.SILENT_EXECUTION = oldSilent;
     }
     
-    return msg.length > 0 && msg[0].length > 0;
   }
 
   @Override
